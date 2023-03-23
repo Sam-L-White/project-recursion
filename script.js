@@ -22,16 +22,66 @@ function fibsRec(n){
     return [...fibsRec(n-1), fibsRec(n-1)[n - 2] + fibsRec(n-1)[n - 3]];
 }
 
+function merge(firstHalf, secondHalf){
+    let mergedArray = []
+
+    let firstCount = 0
+    let secondCount = 0
+
+    while(firstCount < firstHalf.length && secondCount < secondHalf.length){
+
+        if(firstHalf[firstCount] < secondHalf[secondCount]){
+
+            mergedArray.push(firstHalf[firstCount])
+            firstCount++
+
+        } else {
+
+            mergedArray.push(secondHalf[secondCount])
+            secondCount++
+        }
+    }
+
+    while (firstCount < firstHalf.length){
+
+        mergedArray.push(firstHalf[firstCount])
+        firstCount++
+    }
+
+    while (secondCount < secondHalf.length){
+
+        mergedArray.push(secondHalf[secondCount])
+        secondCount++
+    }
+
+    return mergedArray
+}
+
 function mergeSort(array){
-    if(a < b){
-        return a
+
+    if(array.length < 2){
+
+        return array
+
     } else {
-        return b
+
+        let half = Math.ceil(array.length / 2)
+        let firstHalf = array.slice(0, half)
+        let secondHalf = array.slice(half)
+        let firstResult = mergeSort(firstHalf)
+        let secondResult = mergeSort(secondHalf)
+        let result = merge(firstResult, secondResult)
+        return result
     }
 }
 
-console.log(fibs(10))
+let mergeArray = [1,4,6,2,5,3]
+console.log(mergeSort(mergeArray))
+
+/*console.log(fibs(10))
 
 
 
-console.log(fibsRec(10))
+
+
+console.log(fibsRec(10))*/
